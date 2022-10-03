@@ -1,0 +1,23 @@
+{
+  "name": "camm",
+  "version": "1.0.0",
+  "description": "",
+  "main": "main.js",
+  "type": "module",
+  "scripts": {
+    "start": "sh main.sh"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/brandonzx3/CAMM.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/brandonzx3/CAMM/issues"
+  },
+  "homepage": "https://github.com/brandonzx3/CAMM#readme",
+  "dependencies": {
+    "discord.js": "^14.5.0"
+  }
+}
