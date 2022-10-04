@@ -13,23 +13,14 @@ export function start_server() {
     });
 }
 
-app.post('/hi', (req, res) => {
-    play_sound("/assets/hi1.mp3");
-    res.sendStatus(200);
-});
+app.post('/*', (req, res) => {
+    const files = fs.readdirSync(path.join(__dirname, '/assets'));
+    files.forEach(file => {
+        if(req.url.substring(1) == file.split(".")[0]) {
+            play_sound(`assets/${req.url}.mp3`)
+        }
+    });
 
-app.post('/wow', (req, res) => {
-    play_sound("/assets/wowwww.mp3");
-    res.sendStatus(200);
-});
-
-app.post('/yes', (req, res) => {
-    play_sound("/assets/yes.mp3");
-    res.sendStatus(200);
-});
-
-app.post('/no', (req, res) => {
-    play_sound("/assets/no1.mp3");
     res.sendStatus(200);
 });
 
