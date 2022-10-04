@@ -1,0 +1,23 @@
+<html>
+    <button id="hi">hi</button>
+    <button id="wow">wow</button>
+    <button id="yes">yes</button>
+    <button id="no">no</button>
+    <script>
+        document.querySelector("#hi").addEventListener('click', function() {
+            fetch('hi', {method: 'POST'})
+        });
+
+        document.querySelector("#wow").addEventListener('click', function() {
+            fetch('wow', {method: 'POST'})
+        });
+
+        document.querySelector("#yes").addEventListener('click', function() {
+            fetch('yes', {method: 'POST'})
+        });
+
+        document.querySelector("#no").addEventListener('click', function() {
+            fetch('no', {method: 'POST'})
+        });
+    </script>
+</html>
