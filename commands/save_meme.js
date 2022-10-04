@@ -1,4 +1,6 @@
 import { client } from "./../main.js";
+import fs from "fs";
+import request from "request";
 
 export default {
     name: "save",
@@ -6,27 +8,32 @@ export default {
 
     contents: [
         {
-            name: "content1",
+            name: "message_id",
             description: "the id of the message",
             type: "string",
             required: true,
         },
         {
-            name: "content2",
-            description: "the id of the message",
+            name: "filename",
+            description: "name to save the file under",
             type: "string",
             required: true,
         }
     ],
 
     handler: async(invocation) => {
-        let message_id = invocation.contents.message;
-        console.log(invocation.contents);
+        invocation.will_reply_eventually();
+        let {message_id, filename} = invocation.contents;
         client.channels.fetch(invocation.interaction.channelId).then(channel => {
             channel.messages.fetch(message_id).then(message => {
-                //console.log(message.content);
+                if(message.attachments.length == 0) {
+                    invocation.reply("message has no attachments");
+                    return;
+                }
+
+                request.get(message.attachments.first().url).pipe(fs.createWriteStream(`saved/${filename}.${message.attachments.first().contentType.split("/")[1]}`))
+                invocation.reply(`saved meme as ${filename}.${message.attachments.first().contentType.split("/")[1]}`);
             });
         });
-        invocation.reply_private("sus");
     }
 }

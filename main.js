@@ -15,9 +15,7 @@ export const client = new Client( {
 		GatewayIntentBits.MessageContent,
 		GatewayIntentBits.GuildMembers,
     ],
-})
-
-console.log(commands);
+});
 
 client.on("ready", async () => {
     console.log(`logged in as ${client.user.tag}`);

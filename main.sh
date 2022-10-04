@@ -1,4 +1,4 @@
 while :
 do
-node main.js
+npm start
 done

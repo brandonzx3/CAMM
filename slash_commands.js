@@ -119,15 +119,22 @@ export default async function(client, commands) {
 		function resolve_options(options, ret) {
 			let subcommand = null;
 			for (const option of options) {
-				if (option.type === "BOOLEAN" || option.type === "NUMBER" || option.type === "INTEGER" || option.type === "STRING") ret[option.name] = option.value;
-				else if (option.type === "USER") ret[option.name] = option.user;
-				else if (option.type === "CHANNEL") ret[option.name] = option.channel;
-				else if (option.type === "ROLE") ret[option.name] = option.role;
-				else if (option.type === "MENTIONABLE") ret[option.name] = option.user ?? option.channel ?? option.role;
-				else if (option.type === "SUB_COMMAND" || option.type === "SUB_COMMAND_GROUP") {
+				if (option.type === "BOOLEAN" || option.type === 5 ||
+					option.type === "NUMBER" || option.type === 10 ||
+					option.type === "INTEGER" || option.type === 4 ||
+					option.type === "STRING" || option.type === 3)
+						ret[option.name] = option.value;
+				else if (option.type === "USER" || option.type === 6) ret[option.name] = option.user;
+				else if (option.type === "CHANNEL" || option.type === 7) ret[option.name] = option.channel;
+				else if (option.type === "ROLE" || option.type === 8) ret[option.name] = option.role;
+				else if (option.type === "MENTIONABLE" || option.type === 9) ret[option.name] = option.user ?? option.channel ?? option.role;
+				else if (option.type === "SUB_COMMAND" || option.type === "SUB_COMMAND_GROUP" || option.type === 1 || option.type === 2) {
 					subcommand = option.name;
 					const subsub = resolve_options(option.options, ret);
 					if (subsub != null) subcommand += "/" + subsub;
+				}
+				else {
+					console.warn("Unknown option type " + option.type);
 				}
 				if (option.focused === true) ret.__focused = option.name;
 			}
@@ -149,7 +156,7 @@ export default async function(client, commands) {
 						if (has_deferred == null) {
 							return interaction.reply(...args);
 						} else {
-							return has_deferred.then(async msg => {
+							return has_deferred.then(async _msg => {
 								await interaction.followUp(...args);
 								//await msg.delete();
 							});
