@@ -5,5 +5,6 @@ export default {
     description: "leave the vc",
     handler: async(invocation) => {
         connection.destroy();
+        console.log(connection);
     }
 }
