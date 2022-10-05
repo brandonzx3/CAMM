@@ -8,8 +8,14 @@ export default {
     name: "join",
     description: "join the vc",
     handler: async(invocation) => {
+        if(invocation.interaction.member.voice.channel == null) {
+            invocation.reply_private("you need to be in a vc to use this command");
+            return;
+        }
         joinVoice(invocation);
         connection.subscribe(player);
-        play_sound("assets/whats_up2.mp3");
+        let sounds = ["whats_up2", "hello1", "hello2", "hi1", "what_up"];
+
+        play_sound(`assets/${sounds[Math.floor(Math.random() * sounds.length)]}.mp3`);
     }
 }

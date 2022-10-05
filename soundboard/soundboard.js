@@ -33,7 +33,7 @@ export function play_sound(sound) {
 
 setInterval(() => {
     if(connection != null) {
-        if(connection._state.statue != "destroyed") {
+        if(connection._state.status != "destroyed") {
             idle_time += 50;
             if(idle_time >= 5 * 60 * 1000) {
                 connection.destroy();
@@ -41,4 +41,4 @@ setInterval(() => {
             }
         }
     }
-}, 50)
+}, 50);
