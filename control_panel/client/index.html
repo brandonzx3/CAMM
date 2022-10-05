@@ -69,12 +69,17 @@
         <button>yes</button>
         <button>you_are_sus</button>
     </div>
+    <button id="stop">Stop</button>
     <script>
         var buttons = document.querySelector("#main").children;
         for (const button of buttons) {
             button.addEventListener('click', function() {
-                fetch(button.innerText, {method: 'POST'})
+                fetch(button.innerText, {method: 'POST'});
             });
         }
+
+        document.querySelector("#stop").addEventListener("click", function() {
+            fetch("stopSounds", {method: "POST"});
+        })
     </script>
 </html>

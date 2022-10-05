@@ -8,7 +8,7 @@ const app = express();
 let idle_time = 0;
 
 export function start_server() {
-    app.use(express.static(path.join(__dirname, '/soundboard/client')));
+    app.use(express.static(path.join(__dirname, '/control_panel/client')));
     app.listen(3000, () => {
         console.log(`app running on port 3000`);
     });
@@ -24,12 +24,16 @@ app.post('/*', (req, res) => {
     res.sendStatus(200);
 });
 
+app.on('/stopSounds', (req, res) => {
+    player.stop();
+    idle_time = 0;
+});
+
 export function play_sound(sound) {
     const resource = createAudioResource(fs.createReadStream(path.join(__dirname, sound)));
     player.play(resource);
     idle_time = 0;
 }
-
 
 setInterval(() => {
     if(connection != null) {

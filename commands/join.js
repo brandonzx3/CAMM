@@ -2,7 +2,7 @@ import { joinVoice, connection, __dirname, player } from "../main.js";
 import { createAudioPlayer, createAudioResource } from "@discordjs/voice";
 import path from "path";
 import fs from "fs";
-import { play_sound } from "../soundboard/soundboard.js";
+import { play_sound } from "../control_panel/server.js";
 
 export default {
     name: "join",
