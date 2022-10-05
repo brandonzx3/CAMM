@@ -44,4 +44,4 @@ client.on("ready", async () => {
     await slash_commands(client, commands);
 });
 
-//client.login(info.token);
+client.login(info.token);
