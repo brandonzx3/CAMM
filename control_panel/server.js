@@ -15,6 +15,12 @@ export function start_server() {
 }
 
 app.post('/*', (req, res) => {
+    if(req.url == "/stopSounds") {
+        player.stop();
+        idle_time = 0;
+        return;
+    }
+
     const files = fs.readdirSync(path.join(__dirname, '/assets'));
     files.forEach(file => {
         if(req.url.substring(1) == file.split(".")[0]) {
@@ -24,13 +30,11 @@ app.post('/*', (req, res) => {
     res.sendStatus(200);
 });
 
-app.on('/stopSounds', (req, res) => {
-    player.stop();
-    idle_time = 0;
-});
 
 export function play_sound(sound) {
-    const resource = createAudioResource(fs.createReadStream(path.join(__dirname, sound)));
+    const resource = createAudioResource(fs.createReadStream(path.join(__dirname, sound)), {
+        inlineVolume: true
+    });
     player.play(resource);
     idle_time = 0;
 }
