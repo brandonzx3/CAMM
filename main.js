@@ -43,14 +43,15 @@ client.on("ready", async () => {
     await slash_commands(client, commands);
 });
 
+let sadie_message = `In accordance with the Sadie Inclusion Act of 1983:\n\n<@${info.sadie}>\n\n> *I am a bot. This action was performed automatically.*`;
 client.on("messageCreate", async (message) => {
-    //console.log(message);
-    let mentions = message.content.split(/<@\d+>|@everyone/).length - 1;
-
-    console.log
-    if(mentions >= 3) {
-        message.channel.send(`In accordance with the Sadie Inclusion Act of 1983:\n\n<@${info.sadie}>\n\n> *I am a bot. This action was performed automatically.*`);
-    };
+    let normal_ping = message.content.split(/<@\d+>/).length - 1;
+    let mass_ping = message.content.split(/<@&\d+>|@everyone|@here/).length - 1;
+    if(mass_ping >= 1) {
+        message.channel.send(sadie_message);
+    } else if(normal_ping >= 3) {
+        message.channel.send(sadie_message);
+    }
 });
 
 client.login(info.token);
